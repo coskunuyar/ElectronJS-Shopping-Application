@@ -7,32 +7,6 @@ const { app , BrowserWindow , Menu} = electron;
 let mainWindow;
 let addWindow;
 
-// Create menu template
-const mainMenuTemplate = [
-    {
-        label: 'File',
-        submenu: [
-            {
-                label: 'Add Item',
-                click(){
-                    createAddWindow();
-                },
-
-            },
-            {
-                label: 'Clear Items'
-            },
-            {
-                label: 'Quit',
-                accelerator: process.platform === 'darwin'  ? 'Command+Q' : 'Ctrl+Q',
-                click(){
-                    app.quit();
-                }
-            }
-        ]
-    }
-];
-
 // Handle create add window
 function createAddWindow(){
     // Create new window.
@@ -74,3 +48,36 @@ app.on('ready',() => {
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
 });
+
+
+// Create menu template
+const mainMenuTemplate = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'Add Item',
+                click(){
+                    createAddWindow();
+                },
+
+            },
+            {
+                label: 'Clear Items'
+            },
+            {
+                label: 'Quit',
+                accelerator: process.platform === 'darwin'  ? 'Command+Q' : 'Ctrl+Q',
+                click(){
+                    app.quit();
+                }
+            }
+        ]
+    }
+];
+
+// If mac, add empty object to menu
+if(propcess.platform === "darwin"){
+    mainMenuTemplate.unshift({});
+}
+
